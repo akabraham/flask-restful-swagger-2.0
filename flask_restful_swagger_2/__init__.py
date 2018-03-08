@@ -10,7 +10,7 @@ from flask_restful_swagger_2.swagger import (ValidationError, create_swagger_end
                                              validate_operation_object,
                                              validate_definitions_object,
                                              extract_swagger_path, parse_method_doc,
-                                             parse_schema_doc, _auth as auth)
+                                             get_data_type, parse_schema_doc, _auth as auth)
 
 
 # python3 compatibility
@@ -304,7 +304,7 @@ class _RequestParserExtractorImpl(_BaseExtractorImpl):
         if arg.action == 'append':
             cls.__update_reqparser_arg_as_array(arg, param)
         else:
-            param['type'] = cls._get_swagger_arg_type(arg.type)
+            param['type'] = get_data_type({'type': arg.type})
         return param
 
     @staticmethod
